@@ -1,0 +1,58 @@
+# Bundler
+/.bundle
+/vendor/bundle
+
+# Rails artifacts
+/log/*.log
+/tmp/
+/public/assets
+/public/packs
+/public/packs-test
+
+# Build artifacts
+/dist/
+/build/
+
+# Cache
+.cache/
+/node_modules/
+
+# Generated files
+*.log
+*.pid
+
+# Database
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Secrets / credentials
+.env
+.env.*
+!.env.example
+/config/master.key
+/config/credentials/*.key
+secrets.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Testing
+/coverage/
+.byebug_history
+
+# GoodJob
+/good_job_*
+
+# Spring
+/spring/*.pid
+
+# Claude artifacts
+.claude/

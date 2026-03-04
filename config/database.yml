@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] %>
+
+development:
+  <<: *default
+  database: sport_bot_development
+  user: dmitrybaklikov
+  password: password
+  port: 5432
+
+test:
+  <<: *default
+  database: sport_bot_test
+  user: dmitrybaklikov
+  password: password
+  port: 5432
+
+production:
+  <<: *default
+  database: sport_bot_production
+  url: <%= ENV["DATABASE_URL"] %>

@@ -1,0 +1,30 @@
+<h1>Users (<%= User.count %>)</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Telegram ID</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Role</th>
+      <th>Locale</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.telegram_id %></td>
+        <td><%= user.display_name %></td>
+        <td>@<%= user.username %></td>
+        <td><span class="badge"><%= user.role %></span></td>
+        <td><%= user.locale %></td>
+        <td><%= user.created_at.strftime("%d.%m.%Y") %></td>
+        <td><%= link_to "View", admin_user_path(user), class: "btn" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

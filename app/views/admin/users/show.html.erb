@@ -1,0 +1,21 @@
+<h1>User: <%= @user.display_name %></h1>
+
+<dl>
+  <dt>Telegram ID</dt><dd><%= @user.telegram_id %></dd>
+  <dt>Username</dt><dd>@<%= @user.username %></dd>
+  <dt>Full Name</dt><dd><%= [@user.first_name, @user.last_name].compact.join(" ") %></dd>
+  <dt>Role</dt><dd><%= @user.role %></dd>
+  <dt>Locale</dt><dd><%= @user.locale %></dd>
+  <dt>Games Organized</dt><dd><%= @user.games.count %></dd>
+  <dt>Registered At</dt><dd><%= @user.created_at.strftime("%d.%m.%Y %H:%M") %></dd>
+</dl>
+
+<h2>Update Role</h2>
+<%= form_with url: admin_user_path(@user), method: :patch do |f| %>
+  <%= f.select :role, User.roles.keys.map { |r| [r, r] }, {}, name: "user[role]" %>
+  <%= f.select :locale, [["English", "en"], ["Russian", "ru"]], {}, name: "user[locale]" %>
+  <%= f.submit "Update" %>
+<% end %>
+
+<br>
+<%= link_to "Back to Users", admin_users_path, class: "btn" %>
