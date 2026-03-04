@@ -1,0 +1,190 @@
+en:
+  bot:
+    welcome: "Welcome, %{name}! You are now registered as an organizer."
+    not_authorized: "You must be registered as an organizer first. Use /start to register."
+    error_occurred: "Something went wrong. Please try again later."
+    unknown_action: "Unknown action."
+    unknown_command: "Unknown command. Use /help to see available commands."
+
+    # Main menu
+    menu:
+      new_game: "🏟 New Game"
+      my_games: "📋 My Games"
+      public_games: "🌍 Public Games"
+      settings: "⚙️ Settings"
+
+    # Inline calendar picker
+    calendar:
+      select_date: "📅 Select date and time:"
+      month: "📅 %{year} — Select month:"
+      day: "📅 %{month} %{year} — Select day:"
+      hour: "📅 %{date} — Select hour:"
+      minute: "📅 %{date}, %{hour}:__ — Select minutes:"
+      back: "Back"
+
+    # Game creation FSM
+    select_sport_type: "Choose a sport type:"
+    select_event_type: "Is this a game or a training session?"
+    enter_datetime: "Enter date and time (DD.MM.YYYY HH:MM):"
+    enter_relaunch_datetime: "Enter new date and time for \"%{title}\" (DD.MM.YYYY HH:MM):"
+    select_location: "Choose a location or enter a new one:"
+    enter_location_name: "Enter the location name:"
+    new_location: "📍 Enter new location"
+    enter_max_participants: "Enter the maximum number of participants (2–100):"
+    enter_min_participants: "Enter the minimum number of participants (1–%{max}):"
+    select_visibility: "Choose event visibility:"
+    confirm_game: "Please review and confirm:"
+    confirm: "Confirm"
+    cancel: "Cancel"
+    yes: "Yes"
+    no: "No"
+    accept: "Accept"
+    decline: "Decline"
+
+    # Game creation results
+    game_created: "Game created successfully!"
+    game_cancelled: "Game creation cancelled."
+    game_create_error: "Could not create game: %{error}"
+    game_archived: "\"%{title}\" has been archived."
+    active_event_limit_reached: "You already have 2 active events. Please archive one before creating a new one."
+
+    # Validation errors
+    invalid_datetime_format: "Invalid format. Please use DD.MM.YYYY HH:MM"
+    datetime_must_be_future: "Date and time must be in the future."
+    datetime_too_soon: "The game must be scheduled at least %{hours} hours from now."
+    invalid_max_participants: "Please enter a number between 2 and 100."
+    invalid_min_participants: "Please enter a number between 1 and %{max}."
+
+    # Participant voting
+    voted_going: "You're going!"
+    voted_maybe: "Marked as maybe."
+    voted_not_going: "You're not going."
+    added_to_reserve: "The event is full. You've been added to the reserve list."
+    self_vote_prompt: "Vote for \"%{title}\":"
+    reserve_confirmed: "You've joined the game!"
+    reserve_declined: "Reserve spot declined."
+    participant_removed: "Participant removed."
+    game_not_found: "Game not found."
+    user_not_found: "User @%{username} not found."
+
+    # Invitations
+    invite_username_prompt: "Enter the @username of the person you'd like to invite:"
+    invitation_sent: "Invitation sent to %{name}."
+    invitation_accepted: "You've accepted the invitation to \"%{title}\"."
+    invitation_declined: "You've declined the invitation to \"%{title}\"."
+
+    # Game lists
+    no_active_games: "You have no active games."
+    no_archived_games: "You have no archived or cancelled games."
+    no_public_games: "No public games available at the moment."
+    archived_games_header: "Your archived and cancelled games:"
+    more_games_available:
+      one: "%{count} more game available."
+      other: "%{count} more games available."
+    load_more: "Load more"
+    relaunch: "Relaunch"
+
+    # Game management
+    manage:
+      participants: "Participants"
+      self_vote: "Vote"
+      invite: "Invite"
+      archive: "Archive"
+
+    # Settings
+    settings_menu: "⚙️ Settings"
+    settings:
+      my_subscriptions: "📬 My Subscriptions"
+      organizers: "👥 Organizers"
+      locale_en: "🇬🇧 English"
+      locale_ru: "🇷🇺 Russian"
+      timezone: "Timezone"
+      select_timezone: "🕐 Select your timezone:"
+      subscriptions_empty: "You have no subscriptions yet."
+      organizers_empty: "No organizers available."
+      no_search_results: "No results found."
+      search: "🔍 Search"
+      search_prompt: "Enter name, username, or ID to search:"
+      back: "↩️ Back"
+      prev_page: "⬅️"
+      next_page: "➡️"
+      page_info: "Page %{current} of %{total}"
+    subscribed_successfully: "Subscribed successfully"
+    unsubscribed_successfully: "Unsubscribed successfully"
+    locale_updated: "Language updated."
+    timezone_updated: "Timezone updated."
+
+    # Help
+    help:
+      title: "Available commands:"
+      start: "/start — Main menu"
+      newgame: "/newgame — Create a new game"
+      mygames: "/mygames — Manage your games"
+      publicgames: "/publicgames — Browse public games"
+      settings: "/settings — Bot settings"
+      help: "/help — Show this help"
+
+  game:
+    title_format: "%{sport} (%{event_type})"
+    organizer: "Organizer"
+    going: "Going"
+    maybe: "Maybe"
+    not_going: "Not going"
+    reserve: "Reserve"
+    sport_types:
+      basketball: "🏀 Basketball"
+      football: "🏈 Football"
+      volleyball: "🏐 Volleyball"
+      hockey: "🏒 Hockey"
+      tennis: "🎾 Tennis"
+      badminton: "🏸 Badminton"
+      other: "🏓 Other"
+    event_types:
+      game: "🎾 Game"
+      training: "🏃 Training"
+    status:
+      draft: "🔄 Draft"
+      active: "🟢 Active"
+      cancelled: "🔴 Cancelled"
+      archived: "🔘 Archived"
+    visibility:
+      public: "Public"
+      private: "Private"
+
+  notifications:
+    cancellation: "Event \"%{title}\" on %{date} has been cancelled due to insufficient participants."
+    removed_from_game: "The organizer removed you from \"%{title}\"."
+    reserve_promotion: "A spot opened up in \"%{title}\" on %{date}. Do you want to join?"
+    new_game: "%{organizer} created a new event:"
+    invitation: "%{organizer} invited you to \"%{title}\" on %{date}."
+    invite_declined: "%{name} declined your invitation to \"%{title}\"."
+
+  errors:
+    messages:
+      greater_than_max: "must be less than or equal to max participants"
+
+  activerecord:
+    errors:
+      models:
+        game:
+          attributes:
+            base:
+              active_event_limit_reached: "You already have 2 active events."
+            scheduled_at:
+              must_be_future: "must be in the future"
+              too_soon: "must be at least 2 hours from now"
+        subscription:
+          attributes:
+            base:
+              self_subscription: "You cannot subscribe to yourself"
+
+  admin:
+    games:
+      title: "Games"
+      no_games: "No games found."
+    users:
+      title: "Users"
+      no_users: "No users found."
+    subscriptions:
+      title: "Subscriptions"
+      no_subscriptions: "No subscriptions found."

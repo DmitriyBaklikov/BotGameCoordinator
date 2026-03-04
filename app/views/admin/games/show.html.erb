@@ -1,0 +1,38 @@
+<h1><%= @game.title %></h1>
+
+<dl>
+  <dt>Status</dt><dd><span class="badge badge-<%= @game.status %>"><%= @game.status %></span></dd>
+  <dt>Organizer</dt><dd><%= @game.organizer.display_name %> (@<%= @game.organizer.username %>)</dd>
+  <dt>Location</dt><dd><%= @game.location.name %></dd>
+  <dt>Scheduled At</dt><dd><%= @game.scheduled_at.strftime("%d.%m.%Y %H:%M UTC") %></dd>
+  <dt>Sport Type</dt><dd><%= @game.sport_type %></dd>
+  <dt>Event Type</dt><dd><%= @game.event_type %></dd>
+  <dt>Participants</dt><dd><%= @game.going_count %>/<%= @game.max_participants %> (min: <%= @game.min_participants %>)</dd>
+  <dt>Visibility</dt><dd><%= @game.visibility %></dd>
+</dl>
+
+<h2>Participants</h2>
+<table>
+  <thead>
+    <tr><th>User</th><th>Status</th><th>Invited</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+    <% @game.game_participants.includes(:user).order(:status).each do |gp| %>
+      <tr>
+        <td><%= gp.user.display_name %></td>
+        <td><%= gp.status %></td>
+        <td><%= gp.invited_by_organizer? ? "Yes" : "No" %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Update Status</h2>
+<%= form_with url: admin_game_path(@game), method: :patch do |f| %>
+  <%= f.select :status, Game.statuses.keys.map { |s| [s, s] }, {}, name: "game[status]" %>
+  <%= f.submit "Update" %>
+<% end %>
+
+<br>
+<%= link_to "Back to Games", admin_games_path, class: "btn" %>
