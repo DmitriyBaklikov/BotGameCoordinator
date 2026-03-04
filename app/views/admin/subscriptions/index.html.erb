@@ -1,0 +1,27 @@
+<h1>Subscriptions (<%= Subscription.count %>)</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Subscriber</th>
+      <th>Organizer</th>
+      <th>Created At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subscriptions.each do |sub| %>
+      <tr>
+        <td><%= sub.id %></td>
+        <td><%= sub.subscriber.display_name %></td>
+        <td><%= sub.organizer.display_name %></td>
+        <td><%= sub.created_at.strftime("%d.%m.%Y") %></td>
+        <td>
+          <%= button_to "Delete", admin_subscription_path(sub), method: :delete, class: "btn btn-danger",
+              data: { confirm: "Remove this subscription?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
