@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "~> 3.2"
 
 gem "rails", "~> 7.2"
-gem "sqlite3", "~> 1.7"
+gem "pg", "~> 1.5"
 gem "puma", "~> 6.0"
 gem "telegram-bot", "~> 0.16"
 gem "good_job", "~> 3.0"
