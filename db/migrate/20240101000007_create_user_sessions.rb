@@ -8,6 +8,6 @@ class CreateUserSessions < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :user_sessions, :user_id, unique: true
+    # add_index :user_sessions, :user_id, unique: true
   end
 end

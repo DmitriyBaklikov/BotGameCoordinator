@@ -20,4 +20,6 @@ Rails.application.configure do
 
   config.log_level = :debug
   config.log_tags = [:request_id]
+  
+  config.hosts.clear #allow any host in dev
 end
