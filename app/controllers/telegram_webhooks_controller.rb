@@ -6,6 +6,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     Commands::StartHandler.call(self, current_user)
   end
 
+  def help!(*)
+    Commands::HelpHandler.call(self, current_user)
+  end
+
   def newgame!(*)
     Commands::NewGameHandler.call(self, current_user)
   end
