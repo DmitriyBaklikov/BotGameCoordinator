@@ -84,7 +84,8 @@ class NotificationService
     end
 
     def bot_instance
-      @bot_instance ||= Telegram::Bot::Client.new(ENV.fetch("TELEGRAM_BOT_TOKEN"))
+      token = Rails.application.secrets.telegram_bot_token.presence || ENV.fetch("TELEGRAM_BOT_TOKEN")
+      @bot_instance ||= Telegram::Bot::Client.new(token)
     end
   end
 end
