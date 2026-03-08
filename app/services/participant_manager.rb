@@ -54,7 +54,8 @@ class ParticipantManager
     def resolve_status(game, participant, vote)
       case vote
       when :going
-        if !participant.going? && game.going_count >= game.max_participants
+        already_going = participant.persisted? && participant.going?
+        if !already_going && game.going_count >= game.max_participants
           :reserve
         else
           :going

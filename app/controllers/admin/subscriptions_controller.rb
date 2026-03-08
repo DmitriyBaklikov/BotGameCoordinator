@@ -1,7 +1,7 @@
 module Admin
   class SubscriptionsController < BaseController
     def index
-      @subscriptions = Subscription.includes(:subscriber, :organizer).order(:created_at).page(params[:page])
+      @subscriptions = Subscription.includes(:subscriber, :organizer).order(:created_at)
     end
 
     def destroy

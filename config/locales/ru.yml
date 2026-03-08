@@ -1,0 +1,139 @@
+ru:
+  bot:
+    welcome: "Добро пожаловать, %{name}! Вы зарегистрированы как организатор."
+    not_authorized: "Вы должны зарегистрироваться как организатор. Используйте /start."
+    error_occurred: "Произошла ошибка. Попробуйте позже."
+    unknown_action: "Неизвестное действие."
+    unknown_command: "Неизвестная команда. Используйте /help для списка команд."
+
+    menu:
+      new_game: "🏟 Новая игра"
+      my_games: "📋 Мои игры"
+      public_games: "🌍 Публичные игры"
+      settings: "⚙️ Настройки"
+
+    select_sport_type: "Выберите вид спорта:"
+    select_event_type: "Это игра или тренировка?"
+    enter_datetime: "Введите дату и время (ДД.ММ.ГГГГ ЧЧ:ММ):"
+    enter_relaunch_datetime: "Введите новую дату и время для \"%{title}\" (ДД.ММ.ГГГГ ЧЧ:ММ):"
+    select_location: "Выберите место или введите новое:"
+    enter_location_name: "Введите название места:"
+    new_location: "📍 Новое место"
+    enter_max_participants: "Введите максимальное количество участников (2–100):"
+    enter_min_participants: "Введите минимальное количество участников (1–%{max}):"
+    select_visibility: "Выберите видимость события:"
+    confirm_game: "Проверьте и подтвердите:"
+    confirm: "Подтвердить"
+    cancel: "Отменить"
+    yes: "Да"
+    no: "Нет"
+    accept: "Принять"
+    decline: "Отклонить"
+
+    game_created: "Игра успешно создана!"
+    game_cancelled: "Создание игры отменено."
+    game_create_error: "Не удалось создать игру: %{error}"
+    game_archived: "\"%{title}\" перемещена в архив."
+    active_event_limit_reached: "У вас уже 2 активных события. Архивируйте одно, чтобы создать новое."
+
+    invalid_datetime_format: "Неверный формат. Используйте ДД.ММ.ГГГГ ЧЧ:ММ"
+    datetime_must_be_future: "Дата и время должны быть в будущем."
+    invalid_max_participants: "Введите число от 2 до 100."
+    invalid_min_participants: "Введите число от 1 до %{max}."
+
+    voted_going: "Вы идёте!"
+    voted_maybe: "Отмечено как «может быть»."
+    voted_not_going: "Вы не идёте."
+    added_to_reserve: "Событие заполнено. Вы добавлены в список ожидания."
+    self_vote_prompt: "Голосуйте за \"%{title}\":"
+    reserve_confirmed: "Вы присоединились к игре!"
+    reserve_declined: "Место в резерве отклонено."
+    participant_removed: "Участник удалён."
+    game_not_found: "Игра не найдена."
+    user_not_found: "Пользователь @%{username} не найден."
+
+    invite_username_prompt: "Введите @username человека, которого хотите пригласить:"
+    invitation_sent: "Приглашение отправлено %{name}."
+    invitation_accepted: "Вы приняли приглашение на \"%{title}\"."
+    invitation_declined: "Вы отклонили приглашение на \"%{title}\"."
+
+    no_active_games: "У вас нет активных игр."
+    no_archived_games: "У вас нет архивных или отменённых игр."
+    no_public_games: "Нет доступных публичных игр."
+    archived_games_header: "Ваши архивные и отменённые игры:"
+    more_games_available:
+      one: "Ещё %{count} игра."
+      few: "Ещё %{count} игры."
+      many: "Ещё %{count} игр."
+      other: "Ещё %{count} игр."
+    load_more: "Загрузить ещё"
+    relaunch: "Перезапустить"
+
+    manage:
+      participants: "Участники"
+      self_vote: "Голосовать"
+      invite: "Пригласить"
+      archive: "Архивировать"
+
+    settings_menu: "Настройки"
+    settings:
+      manage_subscriptions: "📬 Мои подписки"
+      locale_en: "🇬🇧 English"
+      locale_ru: "🇷🇺 Русский"
+      subscriptions_header: "Организаторы, на которых можно подписаться:"
+    locale_updated: "Язык обновлён."
+
+    help:
+      title: "Доступные команды:"
+      start: "/start — Главное меню"
+      newgame: "/newgame — Создать новую игру"
+      mygames: "/mygames — Управление вашими играми"
+      publicgames: "/publicgames — Просмотр публичных игр"
+      settings: "/settings — Настройки бота"
+      help: "/help — Показать эту справку"
+
+  game:
+    title_format: "%{sport} (%{event_type})"
+    organizer: "Организатор"
+    going: "Иду"
+    maybe: "Может быть"
+    not_going: "Не иду"
+    reserve: "Резерв"
+    sport_types:
+      basketball: "Баскетбол"
+      football: "Футбол"
+      volleyball: "Волейбол"
+      hockey: "Хоккей"
+      tennis: "Теннис"
+      badminton: "Бадминтон"
+      other: "Другое"
+    event_types:
+      game: "Игра"
+      training: "Тренировка"
+    status:
+      draft: "Черновик"
+      active: "Активная"
+      cancelled: "Отменена"
+      archived: "В архиве"
+    visibility:
+      public: "Публичная"
+      private: "Приватная"
+
+  notifications:
+    cancellation: "Событие \"%{title}\" %{date} отменено из-за недостаточного количества участников."
+    removed_from_game: "Организатор удалил вас из \"%{title}\"."
+    reserve_promotion: "Освободилось место в \"%{title}\" %{date}. Хотите присоединиться?"
+    new_game: "%{organizer} создал новое событие:"
+    invitation: "%{organizer} приглашает вас на \"%{title}\" %{date}."
+    invite_declined: "%{name} отклонил(а) ваше приглашение на \"%{title}\"."
+
+  admin:
+    games:
+      title: "Игры"
+      no_games: "Игры не найдены."
+    users:
+      title: "Пользователи"
+      no_users: "Пользователи не найдены."
+    subscriptions:
+      title: "Подписки"
+      no_subscriptions: "Подписки не найдены."

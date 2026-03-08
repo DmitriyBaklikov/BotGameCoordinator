@@ -3,22 +3,18 @@ module Commands
     def self.call(controller, user)
       locale = user.locale.to_sym
 
-      text = <<~TEXT
-        Available commands:
+      text = [
+        I18n.t("bot.help.title", locale: locale),
+        "",
+        I18n.t("bot.help.start", locale: locale),
+        I18n.t("bot.help.newgame", locale: locale),
+        I18n.t("bot.help.mygames", locale: locale),
+        I18n.t("bot.help.publicgames", locale: locale),
+        I18n.t("bot.help.settings", locale: locale),
+        I18n.t("bot.help.help", locale: locale)
+      ].join("\n")
 
-        /start - main menu
-        /newgame - create a new game
-        /mygames - manage your games
-        /publicgames - browse public games
-        /settings - bot settings
-        /help - show this help
-      TEXT
-
-      controller.send_message(
-        controller.from.id,
-        text
-      )
+      controller.send_message(controller.from.id, text)
     end
   end
 end
-

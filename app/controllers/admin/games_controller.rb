@@ -3,7 +3,6 @@ module Admin
     def index
       @games = Game.includes(:organizer, :location)
                    .order(created_at: :desc)
-                   .page(params[:page])
     end
 
     def show
