@@ -117,36 +117,43 @@ module Commands
     # --- Keyboards ---
 
     def self.settings_keyboard(user, locale)
-      Telegram::Bot::Types::InlineKeyboardMarkup.new(
-        inline_keyboard: [
-          [
-            Telegram::Bot::Types::InlineKeyboardButton.new(
-              text:          I18n.t("bot.settings.my_subscriptions", locale: locale),
-              callback_data: "settings:my_subs:0"
-            ),
-            Telegram::Bot::Types::InlineKeyboardButton.new(
-              text:          I18n.t("bot.settings.organizers", locale: locale),
-              callback_data: "settings:organizers:0"
-            )
-          ],
-          [
-            Telegram::Bot::Types::InlineKeyboardButton.new(
-              text:          I18n.t("bot.settings.locale_en", locale: locale),
-              callback_data: "settings:locale:en"
-            ),
-            Telegram::Bot::Types::InlineKeyboardButton.new(
-              text:          I18n.t("bot.settings.locale_ru", locale: locale),
-              callback_data: "settings:locale:ru"
-            )
-          ],
-          [
-            Telegram::Bot::Types::InlineKeyboardButton.new(
-              text:          "🕐 #{I18n.t("bot.settings.timezone", locale: locale)} (#{user.time_zone})",
-              callback_data: "settings:timezone"
-            )
-          ]
+      rows = [
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.settings.my_subscriptions", locale: locale),
+            callback_data: "settings:my_subs:0"
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.settings.organizers", locale: locale),
+            callback_data: "settings:organizers:0"
+          )
+        ],
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.settings.locale_en", locale: locale),
+            callback_data: "settings:locale:en"
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.settings.locale_ru", locale: locale),
+            callback_data: "settings:locale:ru"
+          )
+        ],
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "🕐 #{I18n.t("bot.settings.timezone", locale: locale)} (#{user.time_zone})",
+            callback_data: "settings:timezone"
+          )
         ]
-      )
+      ]
+
+      if user.organizer?
+        rows << [Telegram::Bot::Types::InlineKeyboardButton.new(
+          text:          I18n.t("bot.presets.manage_presets", locale: locale),
+          callback_data: "settings:presets"
+        )]
+      end
+
+      Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: rows)
     end
 
     def self.timezone_keyboard(user)

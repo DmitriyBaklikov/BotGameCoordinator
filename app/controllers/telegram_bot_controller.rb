@@ -37,6 +37,10 @@ class TelegramBotController < Telegram::Bot::UpdatesController
     ::Commands::SettingsHandler.call(self, current_user)
   end
 
+  def presets!(*)
+    ::Commands::PresetsHandler.call(self, current_user)
+  end
+
   def callback_query(data)
     ::CallbackRouter.dispatch(self, current_user, data)
   end

@@ -15,6 +15,19 @@ module Commands
         return
       end
 
+      presets = user.game_presets.includes(:location)
+      if presets.any?
+        controller.send_message(
+          user.telegram_id,
+          I18n.t("bot.presets.choose_prompt", locale: locale),
+          reply_markup: TelegramMessageBuilder.choose_preset_keyboard(presets, locale: locale)
+        )
+      else
+        start_fresh(controller, user)
+      end
+    end
+
+    def self.start_fresh(controller, user)
       GameCreator.start(user, controller)
     end
 
