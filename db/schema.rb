@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_15_140210) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_15_195402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,30 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_15_140210) do
     t.index ["game_id", "user_id"], name: "index_game_participants_on_game_id_and_user_id", unique: true
     t.index ["game_id"], name: "index_game_participants_on_game_id"
     t.index ["user_id"], name: "index_game_participants_on_user_id"
+  end
+
+  create_table "game_preset_invitees", force: :cascade do |t|
+    t.bigint "game_preset_id", null: false
+    t.bigint "user_id"
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_preset_id", "user_id"], name: "index_game_preset_invitees_on_game_preset_id_and_user_id", unique: true, where: "(user_id IS NOT NULL)"
+    t.index ["game_preset_id"], name: "index_game_preset_invitees_on_game_preset_id"
+  end
+
+  create_table "game_presets", force: :cascade do |t|
+    t.bigint "organizer_id", null: false
+    t.string "name", null: false
+    t.integer "sport_type", null: false
+    t.integer "event_type", null: false
+    t.bigint "location_id", null: false
+    t.integer "max_participants", null: false
+    t.integer "min_participants", null: false
+    t.integer "visibility", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organizer_id"], name: "index_game_presets_on_organizer_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -199,6 +223,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_15_140210) do
 
   add_foreign_key "game_participants", "games"
   add_foreign_key "game_participants", "users"
+  add_foreign_key "game_preset_invitees", "game_presets"
+  add_foreign_key "game_preset_invitees", "users"
+  add_foreign_key "game_presets", "locations"
+  add_foreign_key "game_presets", "users", column: "organizer_id"
   add_foreign_key "games", "locations"
   add_foreign_key "games", "users", column: "organizer_id"
   add_foreign_key "invitations", "games"
