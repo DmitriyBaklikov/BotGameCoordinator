@@ -121,6 +121,44 @@ en:
     locale_updated: "Language updated."
     timezone_updated: "Timezone updated."
 
+    # Presets
+    presets:
+      choose_prompt: "Create a new game or use a preset?"
+      new_game_button: "🆕 New game"
+      summary_title: "📋 Preset summary:"
+      change_anything: "Want to change anything?"
+      no_change: "✅ No, just set date/time"
+      change_something: "✏️ Change something"
+      select_field: "What would you like to change?"
+      field_sport_type: "🏟 Sport type"
+      field_event_type: "🎾 Event type"
+      field_location: "📍 Location"
+      field_max_participants: "👥 Max participants"
+      field_min_participants: "👥 Min participants"
+      field_visibility: "👁 Visibility"
+      field_invitees: "📨 Invitees"
+      confirm_invitees: "These players will be invited:\n%{list}\nProceed?"
+      no_invitees: "None"
+      save_prompt: "Save this game as a preset?"
+      preset_saved: "Preset saved: %{name}"
+      preset_limit_replace: "You have 5 presets. Which one would you like to replace?"
+      preset_replaced: "Preset replaced."
+      preset_deleted: "Preset deleted."
+      delete_confirm: "Delete preset \"%{name}\"? This cannot be undone."
+      no_presets: "You have no presets yet."
+      preset_list_title: "📋 Your presets:"
+      preset_updated: "Preset updated."
+      back: "⬅️ Back"
+      done: "✅ Done"
+      manage_presets: "📋 Manage presets"
+      edit: "✏️ Edit"
+      delete: "🗑 Delete"
+      add_invitee_prompt: "Enter @username to add to this preset:"
+      invitee_added: "Added @%{username} to preset."
+      remove_invitee: "Remove an invitee"
+      invitee_removed: "Removed @%{username} from preset."
+      location_deleted_warning: "The location in this preset no longer exists. Please select a new one."
+
     # Help
     help:
       title: "Available commands:"
@@ -130,6 +168,7 @@ en:
       publicgames: "/publicgames — Browse public games"
       settings: "/settings — Bot settings"
       help: "/help — Show this help"
+      presets: "/presets — Manage game presets"
 
   game:
     title_format: "%{sport} (%{event_type})"

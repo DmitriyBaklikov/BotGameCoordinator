@@ -46,6 +46,7 @@ class User < ApplicationRecord
   has_many :locations, foreign_key: :organizer_id, dependent: :destroy, inverse_of: :organizer
   has_many :subscriptions, foreign_key: :subscriber_id, dependent: :destroy, inverse_of: :subscriber
   has_many :followed_organizers, through: :subscriptions, source: :organizer
+  has_many :game_presets, foreign_key: :organizer_id, dependent: :destroy
   has_many :invitations, foreign_key: :invitee_id, dependent: :destroy, inverse_of: :invitee
   has_one  :user_session, dependent: :destroy
 
