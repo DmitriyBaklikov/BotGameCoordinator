@@ -16,6 +16,23 @@ class InvitationService
     { error: e.message }
   end
 
+  def self.create_for_unknown_user(game:, inviter:, invitee_username:)
+    if Invitation.exists?(game: game, invitee_username: invitee_username, invitee_id: nil)
+      return { error: :already_invited }
+    end
+
+    invitation = Invitation.create!(
+      game:             game,
+      inviter:          inviter,
+      invitee_username: invitee_username,
+      status:           :pending
+    )
+
+    { invitation: invitation }
+  rescue ActiveRecord::RecordInvalid => e
+    { error: e.message }
+  end
+
   def self.accept(invitation_id, user, controller)
     invitation = Invitation.find_by(id: invitation_id, invitee: user)
     return unless invitation&.pending?
