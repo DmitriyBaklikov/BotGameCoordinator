@@ -56,3 +56,6 @@ Thumbs.db
 
 # Claude artifacts
 .claude/
+
+# Git worktrees
+.worktrees/
