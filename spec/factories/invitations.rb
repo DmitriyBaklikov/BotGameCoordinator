@@ -12,5 +12,10 @@ FactoryBot.define do
     trait :declined do
       status { :declined }
     end
+
+    trait :unknown_user do
+      invitee { nil }
+      invitee_username { "unknown_user" }
+    end
   end
 end

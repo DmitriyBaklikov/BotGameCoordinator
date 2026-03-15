@@ -66,6 +66,13 @@ ru:
     invitation_sent: "Приглашение отправлено %{name}."
     invitation_accepted: "Вы приняли приглашение на \"%{title}\"."
     invitation_declined: "Вы отклонили приглашение на \"%{title}\"."
+    invitation_sent_dm: "Приглашение отправлено %{name} в личные сообщения."
+    invitation_sent_link: "%{name} ещё не запускал(а) бота. Отправьте эту ссылку лично:\n%{link}"
+    deep_link_invalid: "Ссылка на приглашение недействительна или истекла."
+    deep_link_already_used: "Это приглашение уже было использовано."
+    deep_link_game_unavailable: "Эта игра больше не доступна."
+    deep_link_joined: "Вы присоединились к \"%{title}\"!"
+    deep_link_reserve: "Игра заполнена. Вы добавлены в список ожидания для \"%{title}\"."
 
     no_active_games: "У вас нет активных игр."
     no_archived_games: "У вас нет архивных или отменённых игр."
