@@ -34,6 +34,22 @@ RSpec.describe InvitationService do
     end
   end
 
+  describe ".create_for_unknown_user" do
+    it "creates an invitation with invitee_username only" do
+      result = described_class.create_for_unknown_user(game: game, inviter: inviter, invitee_username: "john")
+      expect(result[:invitation]).to be_a(Invitation)
+      expect(result[:invitation].invitee_id).to be_nil
+      expect(result[:invitation].invitee_username).to eq("john")
+      expect(result[:invitation]).to be_pending
+    end
+
+    it "returns error when username already invited" do
+      described_class.create_for_unknown_user(game: game, inviter: inviter, invitee_username: "john")
+      result = described_class.create_for_unknown_user(game: game, inviter: inviter, invitee_username: "john")
+      expect(result[:error]).to eq(:already_invited)
+    end
+  end
+
   describe ".accept" do
     let(:invitation) { create(:invitation, game: game, inviter: inviter, invitee: invitee) }
     let(:controller) { instance_double("TelegramBotController") }
