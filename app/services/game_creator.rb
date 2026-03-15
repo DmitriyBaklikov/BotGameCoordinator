@@ -122,7 +122,6 @@ class GameCreator
         status:          :active
       )
 
-      controller.clear_fsm_state(user.id)
       NotifySubscribersJob.perform_later(game.id) if game.public_game?
 
       card     = TelegramMessageBuilder.event_card(game, locale: locale, time_zone: user.tz)
@@ -132,6 +131,17 @@ class GameCreator
         "#{I18n.t("bot.game_created", locale: locale)}\n\n#{card[:text]}",
         reply_markup: keyboard
       )
+
+      if data[:relaunch_game_id] || data["relaunch_game_id"] || data[:preset_id] || data["preset_id"]
+        controller.clear_fsm_state(user.id)
+      else
+        controller.write_fsm_state(user.id, step: "save_preset_prompt", data: data.merge(location_id: game.location_id))
+        controller.send_message(
+          user.telegram_id,
+          I18n.t("bot.presets.save_prompt", locale: locale),
+          reply_markup: TelegramMessageBuilder.save_preset_keyboard(locale: locale)
+        )
+      end
 
       game
     end
