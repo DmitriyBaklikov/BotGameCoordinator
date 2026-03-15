@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: sport_bot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sport_bot}
+      POSTGRES_DB: sport_bot_production
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sport_bot"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  web:
+    build: .
+    ports:
+      - "${PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://sport_bot:${POSTGRES_PASSWORD:-sport_bot}@db:5432/sport_bot_production
+      REDIS_URL: redis://redis:6379/0
+
+  worker:
+    build: .
+    command: bundle exec good_job start
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://sport_bot:${POSTGRES_PASSWORD:-sport_bot}@db:5432/sport_bot_production
+      REDIS_URL: redis://redis:6379/0
+
+volumes:
+  postgres_data:
+  redis_data:
