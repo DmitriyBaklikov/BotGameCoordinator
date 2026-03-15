@@ -37,14 +37,20 @@ class FsmHandler
     username = text.delete_prefix("@").strip
     invitee  = User.find_by(username: username)
 
-    unless invitee
-      controller.send_message(user.telegram_id, I18n.t("bot.user_not_found", username: username, locale: locale))
-      return
+    if invitee
+      result = InvitationService.create(game: game, inviter: user, invitee: invitee)
+      if result[:error]
+        controller.send_message(user.telegram_id, I18n.t("bot.#{result[:error]}", locale: locale, username: username))
+      end
+    else
+      result = InvitationService.create_for_unknown_user(game: game, inviter: user, invitee_username: username)
+      if result[:error]
+        controller.send_message(user.telegram_id, I18n.t("bot.#{result[:error]}", locale: locale, username: username))
+      elsif result[:invitation]
+        SendInvitationJob.perform_later(game.id, user.id, nil, result[:invitation].id)
+      end
     end
 
-    SendInvitationJob.perform_later(game.id, user.id, invitee.id)
-    controller.send_message(user.telegram_id,
-                            I18n.t("bot.invitation_sent", name: invitee.display_name, locale: locale))
     controller.clear_fsm_state(user.id)
   end
 
