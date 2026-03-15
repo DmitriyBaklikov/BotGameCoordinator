@@ -41,6 +41,8 @@ class FsmHandler
       result = InvitationService.create(game: game, inviter: user, invitee: invitee)
       if result[:error]
         controller.send_message(user.telegram_id, I18n.t("bot.#{result[:error]}", locale: locale, username: username))
+      else
+        controller.send_message(user.telegram_id, I18n.t("bot.invitation_sent", name: invitee.display_name, locale: locale))
       end
     else
       result = InvitationService.create_for_unknown_user(game: game, inviter: user, invitee_username: username)

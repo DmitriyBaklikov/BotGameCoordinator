@@ -20,6 +20,12 @@ class DeepLinkHandler
       return
     end
 
+    # For known-user invitations, verify the clicker is the intended recipient
+    if invitation.invitee_id.present? && invitation.invitee_id != user.id
+      controller.send_message(user.telegram_id, I18n.t("bot.deep_link_invalid", locale: locale))
+      return
+    end
+
     # Backfill invitee_id for unknown-user invitations
     if invitation.invitee_id.nil?
       invitation.update!(invitee: user)
