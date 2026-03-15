@@ -75,7 +75,7 @@ class NotificationService
       reply_markup: markup
     )
     true
-  rescue Telegram::Bot::Exceptions::ResponseError => e
+  rescue Telegram::Bot::Error => e
     Rails.logger.error("[NotificationService] Failed to send invitation DM to #{invitee.telegram_id}: #{e.message}")
     false
   end
@@ -102,7 +102,7 @@ class NotificationService
     def send_dm(telegram_id, text, **opts)
       opts[:reply_markup] = opts[:reply_markup].to_h if opts[:reply_markup].respond_to?(:to_h) && !opts[:reply_markup].is_a?(Hash)
       bot_instance.send_message(chat_id: telegram_id, text: text, parse_mode: "HTML", **opts)
-    rescue Telegram::Bot::Exceptions::ResponseError => e
+    rescue Telegram::Bot::Error => e
       Rails.logger.error("[NotificationService] Failed to send DM to #{telegram_id}: #{e.message}")
     end
 

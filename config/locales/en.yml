@@ -72,6 +72,13 @@ en:
     invitation_sent: "Invitation sent to %{name}."
     invitation_accepted: "You've accepted the invitation to \"%{title}\"."
     invitation_declined: "You've declined the invitation to \"%{title}\"."
+    invitation_sent_dm: "Invitation sent to %{name} via DM."
+    invitation_sent_link: "%{name} hasn't started the bot yet. Share this link with them privately:\n%{link}"
+    deep_link_invalid: "This invitation link is invalid or has expired."
+    deep_link_already_used: "This invitation has already been used."
+    deep_link_game_unavailable: "This game is no longer available."
+    deep_link_joined: "You've joined \"%{title}\"!"
+    deep_link_reserve: "The game is full. You've been added to the reserve list for \"%{title}\"."
 
     # Game lists
     no_active_games: "You have no active games."
