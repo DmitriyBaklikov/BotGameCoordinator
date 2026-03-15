@@ -36,8 +36,8 @@ en:
     confirm_game: "Please review and confirm:"
     confirm: "Confirm"
     cancel: "Cancel"
-    yes: "Yes"
-    no: "No"
+    "yes": "Yes"
+    "no": "No"
     accept: "Accept"
     decline: "Decline"
 
