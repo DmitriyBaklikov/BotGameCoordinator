@@ -20,9 +20,8 @@ class SendInvitationJob < ApplicationJob
     invitee = User.find_by(id: invitee_id)
     return unless invitee
 
-    invitation = Invitation.find_or_create_by!(game: game, inviter: inviter, invitee: invitee) do |inv|
-      inv.status = :pending
-    end
+    invitation = Invitation.find_by(game: game, invitee: invitee)
+    return unless invitation
 
     if NotificationService.send_invitation_dm(invitee, game, invitation)
       NotificationService.notify_inviter_dm_sent(inviter, invitee)

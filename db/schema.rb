@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_15_134515) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_15_140210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_15_134515) do
     t.string "token", null: false
     t.string "invitee_username"
     t.index ["game_id", "invitee_id"], name: "index_invitations_on_game_id_and_invitee_id", unique: true
+    t.index ["game_id", "invitee_username"], name: "index_invitations_on_game_and_username_for_unknown", unique: true, where: "(invitee_id IS NULL)"
     t.index ["game_id"], name: "index_invitations_on_game_id"
     t.index ["invitee_id"], name: "index_invitations_on_invitee_id"
     t.index ["inviter_id"], name: "index_invitations_on_inviter_id"

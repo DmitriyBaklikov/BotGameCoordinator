@@ -14,9 +14,10 @@ RSpec.describe SendInvitationJob do
 
   describe "#perform" do
     context "when invitee_id is provided (known user)" do
-      it "creates an invitation and sends DM" do
+      let!(:invitation) { create(:invitation, game: game, inviter: inviter, invitee: invitee) }
+
+      it "sends DM to invitee" do
         described_class.new.perform(game.id, inviter.id, invitee.id)
-        expect(Invitation.find_by(game: game, invitee: invitee)).to be_pending
         expect(NotificationService).to have_received(:send_invitation_dm)
       end
 
