@@ -15,7 +15,8 @@ RUN apt-get update -qq && \
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
-RUN bundle config set --local deployment true && \
+RUN gem install bundler -v "$(grep -A1 'BUNDLED WITH' Gemfile.lock | tail -1 | tr -d ' ')" && \
+    bundle config set --local deployment true && \
     bundle config set --local without "development test" && \
     bundle install --jobs 4 && \
     rm -rf ~/.bundle/cache vendor/bundle/ruby/*/cache
