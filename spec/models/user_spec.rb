@@ -74,19 +74,19 @@ RSpec.describe User do
   end
 
   describe "#display_name" do
-    it "returns first and last name" do
-      user = build(:user, first_name: "John", last_name: "Doe")
-      expect(user.display_name).to eq("John Doe")
+    it "returns first and last name with username" do
+      user = build(:user, first_name: "John", last_name: "Doe", username: "johndoe")
+      expect(user.display_name).to eq("John Doe (@johndoe)")
     end
 
     it "returns first name only when last name is nil" do
-      user = build(:user, first_name: "John", last_name: nil)
-      expect(user.display_name).to eq("John")
+      user = build(:user, first_name: "John", last_name: nil, username: "johndoe")
+      expect(user.display_name).to eq("John (@johndoe)")
     end
 
-    it "falls back to username" do
-      user = build(:user, first_name: nil, last_name: nil, username: "johndoe")
-      expect(user.display_name).to eq("johndoe")
+    it "falls back to User #id with username when name is nil" do
+      user = build(:user, first_name: nil, last_name: nil, username: "johndoe", telegram_id: 100)
+      expect(user.display_name).to eq("User #100 (@johndoe)")
     end
 
     it "falls back to telegram_id" do
