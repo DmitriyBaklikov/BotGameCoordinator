@@ -14,6 +14,8 @@ module Commands
         I18n.t("bot.help.help", locale: locale)
       ].join("\n")
 
+      text += "\n#{I18n.t("bot.help.presets", locale: locale)}" if user.organizer?
+
       controller.send_message(controller.from.id, text)
     end
   end
