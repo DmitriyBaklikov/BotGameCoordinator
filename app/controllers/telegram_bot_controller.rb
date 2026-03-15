@@ -4,8 +4,13 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   include TelegramHandler
   include FsmState
 
-  def start!(*)
-    ::Commands::StartHandler.call(self, current_user)
+  def start!(*args)
+    payload = args.flatten.first&.to_s
+    if payload&.start_with?("invite_")
+      ::DeepLinkHandler.handle_invite(self, current_user, payload)
+    else
+      ::Commands::StartHandler.call(self, current_user)
+    end
   end
 
   def help!(*)
