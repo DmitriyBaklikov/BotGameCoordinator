@@ -245,4 +245,183 @@ class TelegramMessageBuilder
       ]
     )
   end
+
+  def self.choose_preset_keyboard(presets, locale: :en)
+    locale = locale.to_sym
+    buttons = presets.map do |preset|
+      [Telegram::Bot::Types::InlineKeyboardButton.new(
+        text:          "📋 #{preset.name}",
+        callback_data: "preset:select:#{preset.id}"
+      )]
+    end
+
+    buttons << [Telegram::Bot::Types::InlineKeyboardButton.new(
+      text:          I18n.t("bot.presets.new_game_button", locale: locale),
+      callback_data: "preset:new_game"
+    )]
+
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: buttons)
+  end
+
+  def self.preset_change_keyboard(locale: :en)
+    locale = locale.to_sym
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(
+      inline_keyboard: [
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.presets.no_change", locale: locale),
+            callback_data: "preset:no_change"
+          )
+        ],
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.presets.change_something", locale: locale),
+            callback_data: "preset:change"
+          )
+        ]
+      ]
+    )
+  end
+
+  def self.preset_edit_menu_keyboard(preset_id, locale: :en)
+    locale = locale.to_sym
+    fields = %w[sport_type event_type location max_participants min_participants visibility invitees]
+    buttons = fields.map do |field|
+      [Telegram::Bot::Types::InlineKeyboardButton.new(
+        text:          I18n.t("bot.presets.field_#{field}", locale: locale),
+        callback_data: "preset:edit_field:#{preset_id}:#{field}"
+      )]
+    end
+
+    buttons << [Telegram::Bot::Types::InlineKeyboardButton.new(
+      text:          I18n.t("bot.presets.done", locale: locale),
+      callback_data: "preset:edit_done:#{preset_id}"
+    )]
+
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: buttons)
+  end
+
+  def self.preset_list_keyboard(presets, locale: :en)
+    locale = locale.to_sym
+    buttons = presets.map do |preset|
+      [Telegram::Bot::Types::InlineKeyboardButton.new(
+        text:          "📋 #{preset.name}",
+        callback_data: "preset:view:#{preset.id}"
+      )]
+    end
+
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: buttons)
+  end
+
+  def self.preset_actions_keyboard(preset_id, locale: :en)
+    locale = locale.to_sym
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(
+      inline_keyboard: [
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.presets.edit", locale: locale),
+            callback_data: "preset:manage_edit:#{preset_id}"
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.presets.delete", locale: locale),
+            callback_data: "preset:delete_confirm:#{preset_id}"
+          )
+        ],
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          I18n.t("bot.presets.back", locale: locale),
+            callback_data: "preset:manage_list"
+          )
+        ]
+      ]
+    )
+  end
+
+  def self.preset_delete_confirm_keyboard(preset_id, locale: :en)
+    locale = locale.to_sym
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(
+      inline_keyboard: [
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "✅ #{I18n.t("bot.yes", locale: locale)}",
+            callback_data: "preset:delete_yes:#{preset_id}"
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "❌ #{I18n.t("bot.no", locale: locale)}",
+            callback_data: "preset:delete_no:#{preset_id}"
+          )
+        ]
+      ]
+    )
+  end
+
+  def self.save_preset_keyboard(locale: :en)
+    locale = locale.to_sym
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(
+      inline_keyboard: [
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "✅ #{I18n.t("bot.yes", locale: locale)}",
+            callback_data: "preset:save_yes"
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "❌ #{I18n.t("bot.no", locale: locale)}",
+            callback_data: "preset:save_no"
+          )
+        ]
+      ]
+    )
+  end
+
+  def self.preset_replace_keyboard(presets, locale: :en)
+    locale = locale.to_sym
+    buttons = presets.map do |preset|
+      [Telegram::Bot::Types::InlineKeyboardButton.new(
+        text:          "📋 #{preset.name}",
+        callback_data: "preset:replace:#{preset.id}"
+      )]
+    end
+
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: buttons)
+  end
+
+  def self.preset_confirm_invitees_keyboard(locale: :en)
+    locale = locale.to_sym
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(
+      inline_keyboard: [
+        [
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "✅ #{I18n.t("bot.yes", locale: locale)}",
+            callback_data: "preset:invitees_yes"
+          ),
+          Telegram::Bot::Types::InlineKeyboardButton.new(
+            text:          "❌ #{I18n.t("bot.no", locale: locale)}",
+            callback_data: "preset:invitees_no"
+          )
+        ]
+      ]
+    )
+  end
+
+  def self.preset_invitees_edit_keyboard(preset, locale: :en)
+    locale = locale.to_sym
+    buttons = preset.game_preset_invitees.map do |inv|
+      [Telegram::Bot::Types::InlineKeyboardButton.new(
+        text:          "❌ @#{inv.username}",
+        callback_data: "preset:remove_invitee:#{preset.id}:#{inv.id}"
+      )]
+    end
+
+    buttons << [Telegram::Bot::Types::InlineKeyboardButton.new(
+      text:          "➕ #{I18n.t("bot.manage.invite", locale: locale)}",
+      callback_data: "preset:add_invitee:#{preset.id}"
+    )]
+
+    buttons << [Telegram::Bot::Types::InlineKeyboardButton.new(
+      text:          I18n.t("bot.presets.done", locale: locale),
+      callback_data: "preset:edit_done:#{preset.id}"
+    )]
+
+    Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: buttons)
+  end
 end
