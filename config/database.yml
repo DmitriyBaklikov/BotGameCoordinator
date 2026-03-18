@@ -7,14 +7,14 @@ default: &default
 development:
   <<: *default
   database: sport_bot_development
-  user: dmitrybaklikov
+  user: sport_bot
   password: password
   port: 5432
 
 test:
   <<: *default
   database: sport_bot_test
-  user: dmitrybaklikov
+  user: sport_bot
   password: password
   port: 5432
 
