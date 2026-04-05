@@ -7,12 +7,18 @@ module TelegramHandler
 
   def send_message(chat_id, text, **opts)
     opts[:reply_markup] = opts[:reply_markup].to_h if opts[:reply_markup].respond_to?(:to_h) && !opts[:reply_markup].is_a?(Hash)
-    bot.send_message(
+    result = bot.send_message(
       chat_id: chat_id,
       text:    text,
       parse_mode: "HTML",
       **opts
     )
+
+    if @fsm_tracking_enabled && result&.dig("message_id")
+      track_message(@fsm_tracking_user_id, message_id: result["message_id"], chat_id: chat_id)
+    end
+
+    result
   rescue StandardError => e
     Rails.logger.error("[TelegramHandler] send_message failed: #{e.message}")
   end
